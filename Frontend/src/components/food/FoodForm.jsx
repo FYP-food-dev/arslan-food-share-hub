@@ -116,6 +116,42 @@ const FoodForm = ({ formData, handleChange, onSubmit, loading, submitText }) => 
                 />
             </div>
 
+
+
+
+        {/* Image Upload Section */}
+<div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">
+        Food Image (Optional)
+    </label>
+    <input
+        type="file"
+        name="image"
+        accept="image/*"
+        onChange={(e) => {
+            // Note: Agar aapke FoodForm ka prop handleChange sirf text ke liye hai, 
+            // toh image ke liye hum parent component mein alag handler banayenge.
+            // Filhal ke liye hum isay handleChange se hi bhej rahe hain.
+            handleChange({
+                target: {
+                    name: "image",
+                    value: e.target.files[0], // File object yahan save hoga
+                }
+            });
+        }}
+        className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+    />
+</div>
+
+
+
+
+
+
+
+
+
+
             {/* Submit Button */}
             <button
                 type="submit"

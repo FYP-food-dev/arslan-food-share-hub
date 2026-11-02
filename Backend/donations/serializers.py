@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.utils import timezone
-from .models import FoodListing, Notification
-
+from .models import FoodListing, Notification,Donation
 
 class FoodListingSerializer(serializers.ModelSerializer):
     donor_name = serializers.CharField(source='donor.username', read_only=True)
@@ -62,13 +61,6 @@ class FoodListingSerializer(serializers.ModelSerializer):
         return data
     
 
-
-
-
-
-
-
-
 class NotificationSerializer(serializers.ModelSerializer):
     # Sender ka naam nikalne ke liye (Agar sender null ho toh "System" dikhaye)
     sender_name = serializers.CharField(source='sender.username', read_only=True, default="System")
@@ -79,3 +71,29 @@ class NotificationSerializer(serializers.ModelSerializer):
             'id', 'title', 'message', 'notification_type', 
             'is_read', 'created_at', 'sender_name'
         ]
+
+#✅ NAYA SERIALIZER
+
+class DonationSerializer(serializers.ModelSerializer):
+    food_name = serializers.CharField(source='food.food_name',read_only=True)
+    donor_name = serializers.CharField(source='food.donor.username',read_only=True)
+    receiver_name = serializers.CharField(source='receiver.username',read_only=True)
+    food_image = serializers.ImageField(source='food.image', read_only=True)
+
+    class Meta:
+        model = Donation 
+        fields =[ 'id', 
+            'food', 
+            'food_name', 
+            'donor_name', 
+            'receiver', 
+            'receiver_name', 
+            'quantity', 
+            'status', 
+            'created_at',
+            'food_image'
+                
+                ]
+        read_only_fields = ['id','receiver','status','created_at']
+
+

@@ -15,6 +15,7 @@ const CreateListing = () => {
         address: "",
         pickup_time: "",
         expiration_date: "",
+        image: null,
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

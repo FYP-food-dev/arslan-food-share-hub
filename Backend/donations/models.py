@@ -28,10 +28,10 @@ class Donation(models.Model):
     
     status = models.CharField(max_length=20, choices=[('unclaimed', 'Unclaimed'), ('claimed', 'Claimed'), ('completed', 'Completed'), ('cancelled', 'Cancelled')], default='unclaimed')
     created_at = models.DateTimeField(auto_now_add=True)
-    receiver_id=models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_donations')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_donations')
 
     def __str__(self):
-         return f"Donation of {self.quantity_donated} for {self.food.food_name} by {self.receiver_id.username}"
+         return f"Donation of {self.quantity} for {self.food.food_name} by {self.receiver.username}"
 class Feedback(models.Model):
     donation = models.OneToOneField(Donation,on_delete=models.CASCADE,related_name='feedback')
 
@@ -41,11 +41,6 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"Feedback for {self.donation.food.food_name}"
-
-
-    
-
-
 
 # ✅ NAYA MODEL: NOTIFICATION
 class Notification(models.Model):

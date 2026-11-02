@@ -3,11 +3,10 @@ from .views import (
     FoodListingCreateView,
     MyListingsView,
     FoodListingDetailView,
-
-
     NotificationListView,
     MarkNotificationReadView, 
-    MarkAllNotificationsReadView
+    MarkAllNotificationsReadView,
+    AvailableFoodListView, ClaimFoodView, MyDonationsView # ✅ Naye imports
 )
 
 urlpatterns = [
@@ -26,16 +25,15 @@ urlpatterns = [
         FoodListingDetailView.as_view(),
         name='listing-detail'
     ),
-
-
-
-
-
-
     # ✅ Notification Endpoints
     path('notifications/', NotificationListView.as_view(), name='notification-list'),
     path('notifications/<int:pk>/read/', MarkNotificationReadView.as_view(), name='notification-read'),
     path('notifications/read-all/', MarkAllNotificationsReadView.as_view(), name='notification-read-all'),
+
+    # ✅ Naye URLs (Receiver ke liye)
+    path('available-food/', AvailableFoodListView.as_view(), name='available-food'),
+    path('claim-food/<int:pk>/', ClaimFoodView.as_view(), name='claim-food'),
+    path('my-donations/', MyDonationsView.as_view(), name='my-donations')
 
 ]
 

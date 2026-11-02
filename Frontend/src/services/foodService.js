@@ -3,7 +3,11 @@ import { api } from "./api";
 // ==================== CREATE LISTING ====================
 export async function createListing(payload) {
     try {
-        const response = await api.post('donations/food-listings/', payload);
+        const response = await api.post('donations/food-listings/', payload, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // ✅ YEH ZAROORI HAI
+            },
+        });
         return { success: true, data: response.data };
     } catch (error) {
         return { 

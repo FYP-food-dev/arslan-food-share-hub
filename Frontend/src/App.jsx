@@ -3,6 +3,9 @@ import Signup from "./Pages/auth/Signup";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import AuthProvider from "./context/AuthProvider";
+import ReceiverDashboard from "./Pages/Dashboard/Receiver/ReceiverDashboard";
+import AvailableFood from "./Pages/Dashboard/Receiver/AvailableFood";
+import MyDonations from "./Pages/Dashboard/Receiver/MyDonations"; // ✅ Import karein
 
 // Donor Pages
 import Profile from "./Pages/Dashboard/Donor/Profile";
@@ -18,12 +21,11 @@ import { NotificationProvider } from "./context/NotificationContext"; // ✅ Imp
 // Temporary Placeholders
 const ChooseRole = () => <h1>Choose Role</h1>;
 //const DonorDashboard = () => <h1>Donor Dashboard</h1>;
-const ReceiverDashboard = () => <h1>Receiver Dashboard</h1>;
+//const ReceiverDashboard = () => <h1>Receiver Dashboard</h1>;
 const RiderDashboard = () => <h1>Rider Dashboard</h1>;
 
 const App = () => {
     return (
-        //<BrowserRouter>
             <AuthProvider>
                 <NotificationProvider> {/* ✅ Yeh wrap karein */}
                 <Toaster /> {/* ✅ Toaster component ko yahan render karein */}
@@ -41,7 +43,7 @@ const App = () => {
                     } />
 
                     <Route path="/profile" element={
-                        <ProtectedRoute allowedRoles={['Donor']}>
+                        <ProtectedRoute allowedRoles={['Donor','Receiver','Rider']}>
                             <Profile />
                         </ProtectedRoute>
                     } />
@@ -70,6 +72,20 @@ const App = () => {
                         </ProtectedRoute>
                     } />
 
+
+
+                    <Route path="/receiver/available-food" element={
+                            <ProtectedRoute allowedRoles={['Receiver']}>
+                                <AvailableFood />
+                            </ProtectedRoute>
+                        } />
+                    
+                        <Route path="/receiver/my-donations" element={
+                            <ProtectedRoute allowedRoles={['Receiver']}>
+                                <MyDonations />
+                            </ProtectedRoute>
+                        } />
+
                     {/* Receiver Routes */}
                     <Route path="/receiver" element={
                         <ProtectedRoute allowedRoles={['Receiver']}>
@@ -89,7 +105,6 @@ const App = () => {
                 </Routes>
                 </NotificationProvider> {/* ✅ NotificationProvider Band kiya */}
             </AuthProvider>
-        //</BrowserRouter>
     );
 };
 
