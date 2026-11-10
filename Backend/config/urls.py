@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls')),
      path('api/donations/', include('donations.urls')),  # ✅ NAYA
+     path('api/deliveries/', include('deliveries.urls')),  # ✅ YEH NAYA ADD KAREIN
 ]
 
 # ✅ YEH LINES ZAROORI HAIN

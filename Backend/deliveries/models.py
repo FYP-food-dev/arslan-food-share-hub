@@ -5,7 +5,8 @@ from donations.models import User
 # Create your models here.
 class Delivery(models.Model):
     donation = models.OneToOneField(Donation, on_delete=models.CASCADE, related_name='delivery')
-    rider = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deliveries')
+    # rider = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deliveries')
+    rider = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='deliveries')
     status = models.CharField(max_length=20, choices=[('unassigned', 'UnAssigned'), ('assigned', 'Assigned'), ('picked_up', 'Picked Up'), ('out_for_delivery', 'Out for Delivery'),('delivered', 'Delivered'),('cancelled', 'Cancelled')], default='unassigned')
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -14,7 +15,8 @@ class Delivery(models.Model):
     food_location = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"Delivery of {self.donation.food.food_name} by {self.rider.username}"
+        rider_name = self.rider.username if self.rider else "Unassigned"
+        return f"Delivery of {self.donation.food.food_name} by {rider_name}"
 class Handover(models.Model):
 
     donation = models.ForeignKey(Donation,on_delete=models.CASCADE,related_name='handovers')
